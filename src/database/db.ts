@@ -10,7 +10,7 @@ function database() {
             // userUnifiedTopology:true,
         })
         .then(() => {
-            console.log('Hurray! ghostly is connected');
+            console.log('Hurray! ciwit is connected');
         })
         .catch((err) => {
             console.log(
