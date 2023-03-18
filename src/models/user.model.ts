@@ -11,7 +11,6 @@ export class userClass {
     @prop({ required: true, lowercase: true })
     password: string;
 
-
     avatar: string;
 
     @prop({ default: false })
