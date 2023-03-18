@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-// import ProcessEnv from './interfaces/hotel.interfaces'
+
 
 function database() {
     mongoose
