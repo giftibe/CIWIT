@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application } from 'express';
 const app: Application = express();
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -8,7 +8,6 @@ app.use(cors());
 
 //imports
 import database from './database/db';
-
 
 
 
