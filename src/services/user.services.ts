@@ -7,7 +7,7 @@ export default class userService {
     }
 
     async deleteUser(data: Partial<IUser>) {
-        return await UserModel.findOneAndUpdate(data);
+        return await UserModel.findOneAndUpdate(data, is);
     }
 
     async findByEmail(email: string) {

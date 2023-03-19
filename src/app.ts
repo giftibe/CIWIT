@@ -10,7 +10,6 @@ app.use(cors());
 import database from './database/db';
 
 
-
 app.listen(process.env.PORT, () => {
     database();
     console.log(`server running`);

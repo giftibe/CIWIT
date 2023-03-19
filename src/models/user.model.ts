@@ -1,24 +1,31 @@
 import { prop, getModelForClass, modelOptions } from '@typegoose/typegoose';
 
+
 @modelOptions({ schemaOptions: { collection: 'users' } })
 export class userClass {
-    @prop({ required: true, lowercase: true, })
+    @prop({ required: true, lowercase: true, trim: true, unique: true })
     email: string;
 
-    @prop({ required: true })
+    @prop({ required: true, trim: true, unique: true })
     username: string;
 
-    @prop({ required: true, lowercase: true })
+    @prop({ required: true, lowercase: true, trim: true })
     password: string;
 
-    avatar: string;
-
     @prop({ default: false })
-    isDeleted: boolean;
+    public isDeleted!: boolean;
 
     timestamp: true
-
 }
 
-const UserModel = getModelForClass(userClass);
+// @pre<userClass>('remove', async function (next) {
+//     this.isDeleted = true;
+//     await this.save();
+//     return next();
+// })
+
+
+
+
+    const UserModel = getModelForClass(userClass);
 export default UserModel;
