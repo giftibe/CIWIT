@@ -7,7 +7,10 @@ export class messageClass {
     message_text: string;
 
     @prop({ required: true })
-    user_id: userClass;
+    receiver_id: userClass;
+
+    @prop({ required: true })
+    sender_id: userClass;
 }
 const messageModel = getModelForClass(messageClass);
 
