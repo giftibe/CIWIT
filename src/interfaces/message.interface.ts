@@ -1,5 +1,5 @@
 export default interface Imessage{
     message: string;
-    userId: string;
-
+    receiver: string;
+    sender: string
 }

@@ -3,14 +3,16 @@ import { userClass } from './user.model';
 
 @modelOptions({ schemaOptions: { collection: 'messages' } })
 export class messageClass {
-    @prop({ required: true, timestamp: true })
-    message_text: string;
+    @prop({ required: true, timestamp: true, trim:true })
+    chat: string;
 
     @prop({ required: true })
-    receiver_id: userClass;
+    receiver: string;
 
     @prop({ required: true })
-    sender_id: userClass;
+    sender: string;
+
+    
 }
 const messageModel = getModelForClass(messageClass);
 
