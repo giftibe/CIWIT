@@ -1,9 +1,9 @@
 import express, { Application } from 'express'
 const app: Application = express()
-const Router = express.Router()
+const router = express.Router()
 
 import userControllers from '../controllers/user.controllers'
-const{createUser} = new userControllers()
+const { createAUser } = userControllers
 
-export default Router.post('/users', createUser)
-
+router.post('/users', createAUser)
+export default router

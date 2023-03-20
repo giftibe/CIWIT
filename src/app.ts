@@ -1,17 +1,19 @@
-import express, { Application } from 'express';
-const app: Application = express();
-import cors from 'cors';
+import express from 'express';
+const app = express();
+import route from '../src/routes/index.routes'
 import dotenv from 'dotenv';
 dotenv.config();
+import cors from 'cors';
 app.use(cors());
 
+app.use(express.json());
 
 //imports
 import database from './database/db';
-import route from '../src/routes/user.routes'
 
 
-app.use('/api/v1', route)
+
+app.use('/api', route)
 
 app.listen(process.env.PORT, () => {
     database();
