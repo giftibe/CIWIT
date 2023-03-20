@@ -1,5 +1,10 @@
 import express from 'express'
-const app = express();
-import userRouter from './user.routes'
+const Router = express.Router()
 
-export default app.use('/v1', userRouter);
+import userRouter from './user.routes'
+import messageRouter from './message.routes'
+
+Router.use('/v1', userRouter);
+Router.use('/v1', messageRouter);
+
+export {Router}

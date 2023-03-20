@@ -52,3 +52,5 @@ class messageController {
         } catch (err) { return res.status(500).send({ message: err, success: false }) }
     }
 }
+
+export default new messageController()
