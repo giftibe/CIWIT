@@ -4,16 +4,16 @@ import { prop, getModelForClass, modelOptions } from '@typegoose/typegoose';
 @modelOptions({ schemaOptions: { collection: 'users' } })
 export class userClass {
     @prop({ required: true, lowercase: true, trim: true, unique: true })
-    email: string;
+    public email: string;
 
     @prop({ required: true, trim: true, unique: true })
-    username: string;
+    public username: string;
 
     @prop({ required: true, lowercase: true, trim: true })
     password: string;
 
     @prop({ default: false })
-    public isDeleted!: boolean;
+    public isDeleted: boolean;
 
     timestamp: true
 }
@@ -24,8 +24,5 @@ export class userClass {
 //     return next();
 // })
 
-
-
-
-    const UserModel = getModelForClass(userClass);
+const UserModel = getModelForClass(userClass);
 export default UserModel;

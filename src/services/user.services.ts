@@ -11,12 +11,11 @@ class userService {
     }
 
     async findByEmail(email: string) {
-        
-        return await UserModel.find({ email: email, isDeleted: false })
+        return await UserModel.findOne({ email: email })
     }
 
     async findByusername(username: string) {
-        return await UserModel.find({ username: username, isDeleted: false })
+        return await UserModel.findOne({ username: username, isDeleted: false })
     }
 }
 

@@ -1,24 +1,21 @@
 import userServices from '../services/user.services';
-import express, { Request, Response } from 'express';
-// const { findByEmail, createUser, deleteUser, findByusername } =
-//     userServices;
+import { Request, Response } from 'express';
+const { findByEmail, createUser, deleteUser, findByusername } = userServices;
 
-export default class userControllers {
-    async createUser(req: Request, res: Response) {
-        let success: boolean = false;
-        const email = req.body.email
-        const username = req.body.username
+class userControllers {
+    async createAUser(req: Request, res: Response) {
 
         try {
             //checks if email is already in use
-            if (await userServices.findByEmail(email)) {
+            let searchMail = await findByEmail(req.body.email)
+            if (searchMail) {
                 return res.status(409).send({
                     message: 'email already exist',
                     success: true,
                 });
             }
             //checks if username already exist
-            if (await userServices.findByusername(username)) {
+            if (await findByusername(req.body.username)) {
                 return res.status(409).send({
                     message: 'username already exist',
                     success: true,
@@ -26,14 +23,17 @@ export default class userControllers {
             }
 
             //Now creates user if above conditons are satified
-            const newUser = await userServices.createUser(req.body);
+            const newUser = await createUser(req.body);
             return res.status(201).send({
                 message: 'User created',
                 success: true,
                 newUser,
             });
         } catch (err) {
-            return res.status(500).send({ message: err, success: false });
+            return res.status(500).send({
+                message: err,
+                success: false
+            });
         }
     }
 
@@ -43,8 +43,8 @@ export default class userControllers {
             const { email } = req.body
 
             //checks if email is already in use
-            if (await userServices.findByEmail(email)) {
-                await userServices.deleteUser(email)
+            if (await findByEmail(email)) {
+                await deleteUser(email)
                 return res.status(201).send({
                     message: 'account deleted',
                     success: true,
@@ -64,3 +64,5 @@ export default class userControllers {
     }
 
 }
+
+export default new userControllers();
