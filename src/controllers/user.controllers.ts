@@ -1,38 +1,39 @@
 import userServices from '../services/user.services';
 import express, { Request, Response } from 'express';
-const { findByEmail, createUser, deleteUser, findByusername } =
-    new userServices();
+// const { findByEmail, createUser, deleteUser, findByusername } =
+//     userServices;
 
 export default class userControllers {
     async createUser(req: Request, res: Response) {
         let success: boolean = false;
-        const { email, username } = req.body;
+        const email = req.body.email
+        const username = req.body.username
 
         try {
             //checks if email is already in use
-            if (await findByEmail(email)) {
-                res.status(409).send({
+            if (await userServices.findByEmail(email)) {
+                return res.status(409).send({
                     message: 'email already exist',
                     success: true,
                 });
             }
             //checks if username already exist
-            if (await findByusername(username)) {
-                res.status(409).send({
+            if (await userServices.findByusername(username)) {
+                return res.status(409).send({
                     message: 'username already exist',
                     success: true,
                 });
             }
 
             //Now creates user if above conditons are satified
-            const newUser = await createUser(req.body);
-            res.status(201).send({
+            const newUser = await userServices.createUser(req.body);
+            return res.status(201).send({
                 message: 'User created',
                 success: true,
                 newUser,
             });
         } catch (err) {
-            res.status(500).send({ message: err, success: false });
+            return res.status(500).send({ message: err, success: false });
         }
     }
 
@@ -42,17 +43,18 @@ export default class userControllers {
             const { email } = req.body
 
             //checks if email is already in use
-            if (await findByEmail(email)) {
-                res.status(409).send({
+            if (await userServices.findByEmail(email)) {
+                await userServices.deleteUser(email)
+                return res.status(201).send({
+                    message: 'account deleted',
+                    success: true,
+                })
+            } else {
+                return res.status(409).send({
                     message: 'email already exist',
                     success: true,
                 });
 
-                await deleteUser(email)
-                res.status(201).send({
-                    message: 'deleted account',
-                    success: true,
-                })
             }
 
         } catch (err) {
